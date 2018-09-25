@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="5.1.0" />
     <PackageReference Include="Moq" Version="4.10.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VirtualPet.Api\VirtualPet.Api.csproj" />
     <ProjectReference Include="..\VirtualPet.Data\VirtualPet.Data.csproj" />
   </ItemGroup>
 

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using VirtualPet.Domain.Entities;
+using VirtualPet.Application.Entities;
 
-namespace VirtualPet.Data
+namespace VirtualPet.Application
 {
-    public class VirtualPetContext : DbContext
+    public class VirtualPetDbContext : DbContext
     {
         public DbSet<Pet> Pets { get; set; }
         public DbSet<User> Users { get; set; }
@@ -14,9 +14,10 @@ namespace VirtualPet.Data
         public DbSet<EventType> EventTypes { get; set; }
         public DbSet<PetType> PetTypes { get; set; }
 
-        //public VirtualPetContext(DbContextOptions options) : base(options)
-        //{
-        //}
+        public VirtualPetDbContext(DbContextOptions<VirtualPetDbContext> options) : base(options)
+        {
+
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -63,11 +64,8 @@ namespace VirtualPet.Data
             var user = new User{Id = 1};
             user.Pets = new List<Pet>{ pet };
 
-
-
-
             modelBuilder.Entity<User>().HasData(user);
-            modelBuilder.Entity<User>().HasData(new User());
+           // modelBuilder.Entity<User>().HasData(new User());
 
         }
     }

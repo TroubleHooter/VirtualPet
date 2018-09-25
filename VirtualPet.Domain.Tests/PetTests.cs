@@ -1,5 +1,5 @@
 ﻿using System;
-using VirtualPet.Domain.Entities;
+using VirtualPet.Application.Entities;
 using Xunit;
 
 namespace VirtualPet.Domain.Tests
