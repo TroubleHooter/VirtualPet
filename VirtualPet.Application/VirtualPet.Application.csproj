@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
-    </Reference>
     <Reference Include="MediatR, Version=5.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MediatR.5.1.0\lib\net45\MediatR.dll</HintPath>
     </Reference>
@@ -135,12 +132,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommandHandlers\StrokePetCommandHandler.cs" />
+    <Compile Include="Commands\StrokePetCommand.cs" />
     <Compile Include="Config\AppSettings.cs" />
     <Compile Include="Config\ConnectionStrings.cs" />
     <Compile Include="Dtos\BaseDto.cs" />
     <Compile Include="Dtos\PetDto.cs" />
     <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\Event.cs" />
+    <Compile Include="Enums\EventTypes.cs" />
+    <Compile Include="Mappers\IMapper.cs" />
+    <Compile Include="Mappers\PetMapper.cs" />
+    <Compile Include="Migrations\20180926115827_InitialCreate.cs" />
+    <Compile Include="Migrations\20180926115827_InitialCreate.designer.cs">
+      <DependentUpon>20180926115827_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\VirtualPetDbContextModelSnapshot.cs" />
+    <Compile Include="ValueObjects\Event.cs" />
     <Compile Include="Entities\EventType.cs" />
     <Compile Include="Entities\Pet.cs" />
     <Compile Include="Entities\PetProfile.cs" />
@@ -156,9 +163,7 @@
     <Compile Include="ValueObjects\ValueObject.cs" />
     <Compile Include="VirtualPetDBContext.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

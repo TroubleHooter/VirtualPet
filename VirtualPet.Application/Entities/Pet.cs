@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using VirtualPet.Application.ValueObjects;
 
 namespace VirtualPet.Application.Entities
 {
@@ -19,42 +21,39 @@ namespace VirtualPet.Application.Entities
         }
         public string Name { get; set; }
         public DateTime LastUpdated { get; set; }
+        [ForeignKey("PetProfileId")]
         public PetProfile Profile { get; set; }
+        public int PetProfileId { get; set; }
         public int UserId { get; set; }
+        [ForeignKey("PetTypeId")]
         public PetType TypeOfPet { get; set; }
+        public int PetTypeId { get; set; }
         public List<Event> Events { get; set; }
 
-        private void UpdateMood(DateTime currentDate)
+        public void UpDatePet(DateTime currentDate)
         {
             var multiplier = GetStatMultiplier(currentDate, LastUpdated);
             Mood -= Profile.MoodTimeModifier * multiplier;
-        }
-
-        public void UpdateHunger(DateTime currentDate)
-        {
-            var multiplier = GetStatMultiplier(currentDate, LastUpdated);
             Hunger += Profile.HungerTimeModifier * multiplier;
         }
 
         public void Stroke(DateTime currentTime)
         {
-            UpdateMood(currentTime);
-            UpdateHunger(currentTime);
+            UpDatePet(currentTime);
             Mood += Profile.StrokeModifier;
             LastUpdated = currentTime;
         }
 
         public void Feed(DateTime currentTime)
         {
-            UpdateMood(currentTime);
-            UpdateHunger(currentTime);
+            UpDatePet(currentTime);
             Hunger -= Profile.FeedModifier;
             LastUpdated = currentTime;
         }
 
-        private int GetStatMultiplier(DateTime currentDate, DateTime LastDate)
+        private int GetStatMultiplier(DateTime currentDate, DateTime lastDate)
         {
-            return (int)currentDate.Subtract(LastDate).TotalMinutes;
+            return (int)currentDate.Subtract(lastDate).TotalMinutes;
         }
         private int ConstrainStat(int matrix)
         {

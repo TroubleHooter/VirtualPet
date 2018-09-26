@@ -1,4 +1,7 @@
-﻿namespace VirtualPet.Application.Dtos
+﻿using System;
+using System.Data;
+
+namespace VirtualPet.Application.Dtos
 {
     public class PetDto : BaseDto
     {

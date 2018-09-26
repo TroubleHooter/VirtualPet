@@ -54,7 +54,7 @@ namespace VirtualPet.WebApi.IoC
 
         public static void RegisterDependencies(Container container, IServiceCollection services, ConnectionStrings connectionStrings)
         {
-            AutoMapperRegitration.Register(container);
+            MapperRegitration.Register(container);
             MediatRRegistration.Register(container);
         }
 

@@ -1,8 +1,5 @@
 ﻿
-using System;
-using System.Linq;
-using System.Reflection;
-using AutoMapper;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,16 +38,26 @@ namespace VirtualPet.WebApi
             var appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
             var connectionStrings = Configuration.GetSection("ConnectionStrings").Get<ConnectionStrings>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            services.AddDbContext<VirtualPetDbContext>(builder =>
+            services.AddMvc(config =>
             {
-                if (!builder.IsConfigured)
+                config.CacheProfiles.Add("Never",
+                    new CacheProfile
+                    {
+                        Location = ResponseCacheLocation.None,
+                        NoStore = true
+                    });
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-                {
-                    builder.UseSqlServer(connectionStrings.VirtualPet);
-                }
-            });
+            services.AddDbContext<VirtualPetDbContext>();
+
+            //services.AddDbContext<VirtualPetDbContext>(builder =>
+            //{
+            //    if (!builder.IsConfigured)
+
+            //    {
+            //        builder.UseSqlServer(connectionStrings.VirtualPet);
+            //    }
+            //});
 
             IoCHelper.ConfigureMvcToUseSimpleInjector(container, services, connectionStrings);
             IoCHelper.RegisterDependencies(container, services, connectionStrings);
@@ -77,7 +84,11 @@ namespace VirtualPet.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-          //  InitializeContainer(app);
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<VirtualPetDbContext>();
+                context.Database.EnsureCreated();
+            }
 
             container.Verify();
 
