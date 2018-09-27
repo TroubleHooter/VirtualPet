@@ -13,7 +13,7 @@ using VirtualPet.Application.Queries;
 using VirtualPet.Application.Queries.QueryHandlers;
 using Xunit;
 
-namespace VirtualPet.Application.UnitTests.Queries
+namespace VirtualPet.Application.UnitTests.Queries.QueryHandlers
 {
     public class GetOwnedPetsQueryHandlerTests
     {

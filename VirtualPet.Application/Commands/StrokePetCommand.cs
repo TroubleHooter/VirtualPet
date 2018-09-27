@@ -4,7 +4,7 @@ using VirtualPet.Application.HandlerResponse;
 
 namespace VirtualPet.Application.Commands
 {
-    public class StrokePetCommand : IRequest
+    public class StrokePetCommand : IRequest<HandlerResponse<string>>
     {
         public int PetId { get; set; }
         public DateTime UpdateDateTime { get; set; }
