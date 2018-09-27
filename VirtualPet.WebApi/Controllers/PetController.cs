@@ -29,14 +29,11 @@ namespace VirtualPet.Api.Controllers
         }
         // GET virtual-pet/pet/petId
         [HttpGet("{petId}")]
-        public ActionResult<PetDto> Get(int petId)
+        public async Task<IActionResult> Get(int petId)
         {
-            var result = mediator.Send(new GetOwnedPetsQuery(1, DateTime.Now));
+            var result = await mediator.Send(new GetPetQuery(petId, DateTime.Now));
 
-            if (result == null)
-                return NotFound();
-
-            return new PetDto();
+            return ReturnResponse(result.Result);
         }
         // GET virtual-pet/pets/ownerId
         [HttpGet("pets/{OwnerId}")]
@@ -44,16 +41,18 @@ namespace VirtualPet.Api.Controllers
         {
             var result = await mediator.Send(new GetOwnedPetsQuery(ownerId, DateTime.Now));
 
-            if (result.ResultType == ResultType.NotFound)
-                return NotFound();
-
             return ReturnResponse(result.Result);
         }
         // GET virtual-pet/pet/stroke/petId
         [HttpPost("stroke/{petId}")]
-        public async void Stroke(int petId)
+        public async Task<IActionResult> Stroke(int petId)
         {
-            await mediator.Send(new StrokePetCommand(petId, DateTime.Now));
+           var result = await mediator.Send(new StrokePetCommand(petId, DateTime.Now));
+
+            if (result.ResultType == ResultType.NotFound)
+                return NotFound();
+
+            return NoContent();
         }
 
         // GET virtual-pet/pet/feed/petId

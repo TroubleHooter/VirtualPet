@@ -149,6 +149,7 @@
       <DependentUpon>20180926115827_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\VirtualPetDbContextModelSnapshot.cs" />
+    <Compile Include="Queries\QueryHandlers\GetPetQueryHandler.cs" />
     <Compile Include="ValueObjects\Event.cs" />
     <Compile Include="Entities\EventType.cs" />
     <Compile Include="Entities\Pet.cs" />
