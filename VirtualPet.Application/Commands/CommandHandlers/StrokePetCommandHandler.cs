@@ -23,14 +23,13 @@ namespace VirtualPet.Application.Commands.CommandHandlers
 
             result.Stroke(request.UpdateDateTime);
 
-            var strokeEvent = new Event
-            {
-                CreateDate = request.UpdateDateTime,
-                PetId = result.Id,
-                EventTypeId = (int) EventTypes.Stroked
-            };
-
-            context.Events.Add(strokeEvent);
+            //Add new Event
+            context.Events.Add(new Event
+                {
+                    CreateDate = request.UpdateDateTime,
+                    PetId = result.Id,
+                    EventTypeId = (int)EventTypes.Stroked
+                });
 
             context.SaveChanges();
 

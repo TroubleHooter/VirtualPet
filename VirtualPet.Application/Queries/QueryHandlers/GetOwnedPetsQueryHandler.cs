@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,8 +14,9 @@ namespace VirtualPet.Application.Queries.QueryHandlers
     public class GetOwnedPetsQueryHandler : IRequestHandler<GetOwnedPetsQuery, HandlerResponse<List<PetDto>>>
     {
         private VirtualPetDbContext context;
-        private IMapper<Pet, PetDto> mapper;
-        public GetOwnedPetsQueryHandler(VirtualPetDbContext context, IMapper<Pet, PetDto> mapper)
+        private IMapper<List<Pet>, List<PetDto>> mapper;
+
+        public GetOwnedPetsQueryHandler(VirtualPetDbContext context, IMapper<List<Pet>, List<PetDto>> mapper)
         {
             this.context = context;
             this.mapper = mapper;
@@ -25,20 +24,14 @@ namespace VirtualPet.Application.Queries.QueryHandlers
         public Task<HandlerResponse<List<PetDto>>> Handle(GetOwnedPetsQuery request, CancellationToken cancellationToken)
         {
             var dbResult = context.Pets.Include(p => p.Profile).Include(p => p.TypeOfPet)
-                .Where(p => p.UserId == request.OwnerId);
+                .Where(p => p.UserId == request.OwnerId).ToList();
 
             if(!dbResult.Any())
                  return Task.FromResult(new HandlerResponse<List<PetDto>>(ResultType.NotFound, null));
 
-            var results = new List<PetDto>();
+            dbResult.ForEach(p => p.UpDatePet(request.UpdateDateTime));
 
-            foreach (var pet in dbResult)
-            {
-                pet.UpDatePet(request.UpdateDateTime);
-                results.Add(mapper.Map(pet));
-            }
-
-            return Task.FromResult(new HandlerResponse<List<PetDto>>(ResultType.Success, results));
+            return Task.FromResult(new HandlerResponse<List<PetDto>>(ResultType.Success, mapper.Map(dbResult)));
         }
     }
 }

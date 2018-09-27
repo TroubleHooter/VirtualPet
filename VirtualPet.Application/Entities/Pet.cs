@@ -7,8 +7,8 @@ namespace VirtualPet.Application.Entities
 {
     public class Pet : Entity
     {
-        private int _mood;
-        private int _hunger;
+        private int _mood = 50;
+        private int _hunger = 50;
         public int Mood
         {
             get => _mood;
@@ -30,7 +30,11 @@ namespace VirtualPet.Application.Entities
         public int PetTypeId { get; set; }
         public List<Event> Events { get; set; }
 
-        public void UpDatePet(DateTime currentDate)
+        /// <summary>
+        /// Update pets mood and hunger from the LastUpdatedDate
+        /// </summary>
+        /// <param name="currentDate"></param>
+        internal void UpDatePet(DateTime currentDate)
         {
             var multiplier = GetStatMultiplier(currentDate, LastUpdated);
             Mood -= Profile.MoodTimeModifier * multiplier;

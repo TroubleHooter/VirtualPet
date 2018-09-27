@@ -53,7 +53,7 @@ namespace VirtualPet.Api.Controllers
         [HttpPost("stroke/{petId}")]
         public async void Stroke(int petId)
         {
-            var result = await mediator.Send(new StrokePetCommand(petId, DateTime.Now));
+            await mediator.Send(new StrokePetCommand(petId, DateTime.Now));
         }
 
         // GET virtual-pet/pet/feed/petId

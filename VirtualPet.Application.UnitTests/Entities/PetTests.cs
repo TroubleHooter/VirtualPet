@@ -2,7 +2,7 @@
 using VirtualPet.Application.Entities;
 using Xunit;
 
-namespace VirtualPet.Domain.Tests
+namespace VirtualPet.Application.UnitTests.Entities
 {
     public class PetTests
     {

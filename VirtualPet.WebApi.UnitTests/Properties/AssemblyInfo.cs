@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("VirtualPet.Domain.Tests")]
+[assembly: AssemblyTitle("VirtualPet.WebApi.UnitTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("VirtualPet.Domain.Tests")]
+[assembly: AssemblyProduct("VirtualPet.WebApi.UnitTests")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("16357e1c-9e69-48df-89ae-b2c1c5111bcb")]
+[assembly: Guid("cfb617d6-95d9-4098-ab57-f13f68228f3e")]
 
 // Version information for an assembly consists of the following four values:
 //

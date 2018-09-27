@@ -139,8 +139,10 @@
     <Compile Include="Dtos\BaseDto.cs" />
     <Compile Include="Dtos\PetDto.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Enums\PetTypes.cs" />
     <Compile Include="Enums\EventTypes.cs" />
     <Compile Include="Mappers\IMapper.cs" />
+    <Compile Include="Mappers\PetsMapper.cs" />
     <Compile Include="Mappers\PetMapper.cs" />
     <Compile Include="Migrations\20180926115827_InitialCreate.cs" />
     <Compile Include="Migrations\20180926115827_InitialCreate.designer.cs">

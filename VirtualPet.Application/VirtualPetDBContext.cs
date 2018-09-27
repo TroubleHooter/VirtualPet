@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using VirtualPet.Application.Entities;
 using VirtualPet.Application.ValueObjects;
@@ -8,12 +7,12 @@ namespace VirtualPet.Application
 {
     public class VirtualPetDbContext : DbContext
     {
-        public DbSet<Pet> Pets { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<PetProfile> Profiles { get; set; }
-        public DbSet<Event> Events { get; set; }
-        public DbSet<EventType> EventTypes { get; set; }
-        public DbSet<PetType> PetTypes { get; set; }
+        public virtual DbSet<Pet> Pets { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<PetProfile> Profiles { get; set; }
+        public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<EventType> EventTypes { get; set; }
+        public virtual DbSet<PetType> PetTypes { get; set; }
 
         //public VirtualPetDbContext(DbContextOptions<VirtualPetDbContext> options) : base(options)
         //{
