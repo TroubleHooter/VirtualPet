@@ -132,7 +132,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommandHandlers\FeedPetCommandHandler.cs" />
     <Compile Include="Commands\CommandHandlers\StrokePetCommandHandler.cs" />
+    <Compile Include="Commands\FeedPetCommand.cs" />
     <Compile Include="Commands\StrokePetCommand.cs" />
     <Compile Include="Config\AppSettings.cs" />
     <Compile Include="Config\ConnectionStrings.cs" />

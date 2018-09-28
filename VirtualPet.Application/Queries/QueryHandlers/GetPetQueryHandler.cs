@@ -23,7 +23,7 @@ namespace VirtualPet.Application.Queries.QueryHandlers
         public Task<HandlerResponse<PetDto>> Handle(GetPetQuery request, CancellationToken cancellationToken)
         {
             var dbResult = context.Pets.Include(p => p.Profile).Include(p => p.TypeOfPet)
-                .FirstOrDefault(p => p.Id == request.PetId);
+                .SingleOrDefault(p => p.Id == request.PetId);
 
             if(dbResult == null)
                  return Task.FromResult(new HandlerResponse<PetDto>(ResultType.NotFound, null));
