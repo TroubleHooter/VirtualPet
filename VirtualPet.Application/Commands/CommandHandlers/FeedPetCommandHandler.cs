@@ -9,15 +9,15 @@ using VirtualPet.Application.ValueObjects;
 
 namespace VirtualPet.Application.Commands.CommandHandlers
 {
-    public class StrokePetCommandHandler : IRequestHandler<StrokePetCommand, HandlerResponse<string>>
+    public class FeedPetCommandHandler : IRequestHandler<FeedPetCommand, HandlerResponse<string>>
     {
         private VirtualPetDbContext context;
-        public StrokePetCommandHandler(VirtualPetDbContext context)
+        public FeedPetCommandHandler(VirtualPetDbContext context)
         {
             this.context = context;
         }
 
-        public Task<HandlerResponse<string>> Handle(StrokePetCommand request, CancellationToken cancellationToken)
+        public Task<HandlerResponse<string>> Handle(FeedPetCommand request, CancellationToken cancellationToken)
         {
             var result = context.Pets.Include(p => p.Profile).
                 SingleOrDefault(p => p.Id == request.PetId);
@@ -25,14 +25,14 @@ namespace VirtualPet.Application.Commands.CommandHandlers
             if(result == null)
                 return Task.FromResult(new HandlerResponse<string>(ResultType.NotFound, string.Format("Pet with an id of {0} was not found", request.PetId)));
 
-            result.Stroke(request.UpdateDateTime);
+            result.Feed(request.UpdateDateTime);
 
             //Add new Event
             context.Events.Add(new Event
                 {
                     CreateDate = request.UpdateDateTime,
                     PetId = result.Id,
-                    EventTypeId = (int)EventTypes.Stroked
+                    EventTypeId = (int)EventTypes.Fed
                 });
 
             context.SaveChanges();
