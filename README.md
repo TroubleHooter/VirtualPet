@@ -1,10 +1,10 @@
 **Solution** <br />
-*Decreasing mood, increasing Hunger* <br />
-The increasing hunger and decreasing mood/happiness are calculated on the fly by using the LastUpdated field and the current DateTime. The client can calculate the stats locally from the date it last received the pet so it can continue offline.<br />
-On any action (Stroke/feed) the server uses the LastUpdated DateTime and calculates the pet’s stat before implementing the stat modifier from the pets associated profile before saving the new stats and updating the LastUpdated Datetime with the current DateTime.
+ *Decreasing mood, increasing Hunger* <br />
+  The increasing hunger and decreasing mood/happiness are calculated on the fly by using the LastUpdated field and the current DateTime. The client can calculate the stats     locally from the date it last received the pet so it can continue offline.<br />
+  On any action (Stroke/feed) the server uses the LastUpdated DateTime and calculates the pet’s stat before implementing the stat modifier from the pets associated profile     before saving the new stats and updating the LastUpdated Datetime with the current DateTime.
 
-*Profiles*<br />
-There is currently 1 profile but more can be added and associated with a pet to change the mood and hunger time multipliers and the action (Stroke and Feeding) modifiers.
+ *Profiles*<br />
+  There is currently 1 profile but more can be added and associated with a pet to change the mood and hunger time multipliers and the action (Stroke and Feeding) modifiers.
 
 **Patterns used**
 - CQRS with MediatR 
