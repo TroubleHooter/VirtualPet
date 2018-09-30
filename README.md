@@ -19,16 +19,16 @@ within the Startup.cs or alternatively you can run the migration file from the V
 -	logging
 
 **Endpoints**
-Get all pets for user
-https://localhost:44319/virtual-pet/pet/pets/{UserId}
-Get pet by id
-https://localhost:44319/virtual-pet/pet/{PetId}
-Stroke pet by id
-https://localhost:44319/virtual-pet/Stroke/{PetId}
-Feed pet by id
-https://localhost:44319/virtual-pet/Feed/{PetId}
-Create a new pet 
-https://localhost:44319/virtual-pet/pet/
+- Get all pets for user
+```https://localhost:44319/virtual-pet/pet/pets/{UserId}```
+- Get pet by id
+```https://localhost:44319/virtual-pet/pet/{PetId}```
+- Stroke pet by id
+```https://localhost:44319/virtual-pet/Stroke/{PetId}```
+- Feed pet by id
+```https://localhost:44319/virtual-pet/Feed/{PetId}``
+- Create a new pet 
+```https://localhost:44319/virtual-pet/pet/```
 
 **Post Data**
 ```
