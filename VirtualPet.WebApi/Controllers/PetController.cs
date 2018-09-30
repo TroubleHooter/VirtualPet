@@ -23,9 +23,9 @@ namespace VirtualPet.Api.Controllers
 
         // GET virtual-pet/pet/
         [HttpGet()]
-        public ActionResult<string> Get()
+        public IActionResult Get()
         {
-            return "Welcome to Virtual pet";
+            return ReturnResponse("Welcome to Virtual pet");
         }
         // GET virtual-pet/pet/petId
         [HttpGet("{petId}")]
@@ -43,7 +43,7 @@ namespace VirtualPet.Api.Controllers
 
             return ReturnResponse(result.Result);
         }
-        // GET virtual-pet/pet/stroke/petId
+        // POST virtual-pet/pet/stroke/petId
         [HttpPost("stroke/{petId}")]
         public async Task<IActionResult> Stroke(int petId)
         {
@@ -55,17 +55,27 @@ namespace VirtualPet.Api.Controllers
             return NoContent();
         }
 
-        // GET virtual-pet/pet/feed/petId
-        [HttpGet("feed/{petId}")]
-        public ActionResult<string> Feed(int petId)
+        // POST virtual-pet/pet/feed/petId
+        [HttpPost("feed/{petId}")]
+        public async Task<IActionResult> Feed(int petId)
         {
-            return "value";
+            var result = await mediator.Send(new FeedPetCommand(petId, DateTime.Now));
+
+            if (result.ResultType == ResultType.NotFound)
+                return NotFound();
+
+            return NoContent();
         }
 
         // POST virtual-pet/pet/
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] PetDto pet)
         {
+            pet.CreateDate = DateTime.Now;
+            var result = await mediator.Send(new CreatePetCommand(pet));
+
+
+            return ReturnResponse(result.Result);
         }
 
     }

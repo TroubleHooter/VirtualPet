@@ -4,7 +4,7 @@ namespace VirtualPet.Application.Enums
 {
     public enum EventTypes
     {
-        Born,
+        Born = 1,
         Stroked,
         Fed
     }

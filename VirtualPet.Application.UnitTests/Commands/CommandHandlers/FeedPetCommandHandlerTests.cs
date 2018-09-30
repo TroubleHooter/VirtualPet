@@ -14,17 +14,17 @@ using Xunit;
 
 namespace VirtualPet.Application.UnitTests.Commands.CommandHandlers
 {
-    public class StrokePetCommandHandlerTests
+    public class FeedPetCommandHandlerTests
     {
         private readonly Mock<VirtualPetDbContext> context;
 
-        public StrokePetCommandHandlerTests()
+        public FeedPetCommandHandlerTests()
         {
             context = new Mock<VirtualPetDbContext>();
         }
 
         [Fact]
-        public void Stroke_Pet_Events_Created_Pet_Updated_Success_Returned()
+        public void Feed_Pet_Events_Created_Pet_Updated_Success_Returned()
         {
             //Arrange
             var now = DateTime.Now;
@@ -33,15 +33,15 @@ namespace VirtualPet.Application.UnitTests.Commands.CommandHandlers
             var pet = new Pet
             {
                 Name = "Fido",
-                PetTypeId = (int) PetTypes.Dog,
+                PetTypeId = (int)PetTypes.Dog,
                 LastUpdated = lastUpdated,
                 PetProfileId = 1,
                 Profile = new PetProfile(),
-                UserId = 1
+                UserId = 1, Events = new List<Event>()
             };
 
             var options = new DbContextOptionsBuilder<VirtualPetDbContext>()
-                .UseInMemoryDatabase(databaseName: "Update_Pet_Create_Stroke_Event")
+                .UseInMemoryDatabase(databaseName: "Update_Pet_Create_Feed_Event")
                 .Options;
 
 
@@ -49,15 +49,15 @@ namespace VirtualPet.Application.UnitTests.Commands.CommandHandlers
             {
                 inMemoryContext.Pets.Add(pet);
                 inMemoryContext.SaveChanges();
-                var sut = new StrokePetCommandHandler(inMemoryContext);
+                var sut = new FeedPetCommandHandler(inMemoryContext);
 
                 //Act
-                var result = sut.Handle(new StrokePetCommand(pet.Id, now), CancellationToken.None);
+                var result = sut.Handle(new FeedPetCommand(pet.Id, now), CancellationToken.None);
 
                 //Assert
                 Assert.Equal(ResultType.Success, result.Result.ResultType);
                 Assert.True(inMemoryContext.Events.Any());
-                Assert.Equal((int)EventTypes.Stroked, inMemoryContext.Events.First().EventTypeId);
+                Assert.Equal((int)EventTypes.Fed, inMemoryContext.Events.First().EventTypeId);
                 Assert.Equal(now, inMemoryContext.Pets.First().LastUpdated);
 
             }
@@ -66,7 +66,7 @@ namespace VirtualPet.Application.UnitTests.Commands.CommandHandlers
         public void Get_Owned_Pets_And_Returns_NotFoundFor_Invalid_PetId()
         {
             //Arrange
-            var sut = new StrokePetCommandHandler(context.Object);
+            var sut = new FeedPetCommandHandler(context.Object);
             var now = DateTime.Now;
             var events = new List<Event>().AsQueryable();
             var pets = new List<Pet>().AsQueryable();
@@ -87,7 +87,7 @@ namespace VirtualPet.Application.UnitTests.Commands.CommandHandlers
             context.Setup(c => c.Events).Returns(mockEventSet.Object);
 
             //Act
-            var result = sut.Handle(new StrokePetCommand(1, now), CancellationToken.None);
+            var result = sut.Handle(new FeedPetCommand(1, now), CancellationToken.None);
 
             //Assert
             Assert.True(result.Result.ResultType == ResultType.NotFound);

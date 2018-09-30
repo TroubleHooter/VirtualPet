@@ -1,6 +1,14 @@
 ﻿<SolutionConfiguration>
   <Settings>
     <AllowParallelTestExecution>False</AllowParallelTestExecution>
+    <MetricsExclusionList>
+      <Value>VirtualPet.Application\VirtualPet.Application.csproj\Migrations</Value>
+      <Value>VirtualPet.Application\VirtualPet.Application.csproj\Config</Value>
+      <Value>VirtualPet.Application\VirtualPet.Application.csproj\ValueObjects</Value>
+      <Value>VirtualPet.WebApi\VirtualPet.WebApi.csproj\IoC</Value>
+      <Value>Program.cs:VirtualPet.WebApi\VirtualPet.WebApi.csproj</Value>
+      <Value>Startup.cs:VirtualPet.WebApi\VirtualPet.WebApi.csproj</Value>
+    </MetricsExclusionList>
     <SolutionConfigured>True</SolutionConfigured>
   </Settings>
 </SolutionConfiguration>

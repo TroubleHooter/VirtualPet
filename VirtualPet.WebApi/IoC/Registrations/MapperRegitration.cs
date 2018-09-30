@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using SimpleInjector;
 using VirtualPet.Application.Dtos;
 using VirtualPet.Application.Entities;
@@ -11,6 +12,7 @@ namespace VirtualPet.WebApi.IoC.Registrations
         public static void Register(Container container)
         {
             container.Register< IMapper<Pet, PetDto>, PetMapper>();
+            container.Register<IMapper<List<Pet>, List<PetDto>>, PetsMapper>();
 
             //var profiles = Assembly.GetExecutingAssembly()
             //    .GetTypes()

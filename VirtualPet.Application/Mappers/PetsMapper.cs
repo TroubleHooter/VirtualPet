@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using VirtualPet.Application.Dtos;
 using VirtualPet.Application.Entities;
 
@@ -21,8 +20,11 @@ namespace VirtualPet.Application.Mappers
                         MoodTimeMultiplier = pet.Profile.MoodTimeModifier,
                         PetType = pet.TypeOfPet.Name,
                         Id = pet.Id,
-                        CreateDate = pet.CreateDate
-                    }
+                        CreateDate = pet.CreateDate,
+                        ProfileId = pet.PetProfileId,
+                        PetTypeId = pet.PetTypeId,
+                        OwnerId = pet.UserId
+                }
                 );
             }
 

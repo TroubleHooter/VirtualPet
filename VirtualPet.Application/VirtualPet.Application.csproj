@@ -132,6 +132,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommandHandlers\CreatePetCommandHandler.cs" />
+    <Compile Include="Commands\CreatePetCommand.cs" />
     <Compile Include="Commands\CommandHandlers\FeedPetCommandHandler.cs" />
     <Compile Include="Commands\CommandHandlers\StrokePetCommandHandler.cs" />
     <Compile Include="Commands\FeedPetCommand.cs" />
@@ -152,7 +154,7 @@
     </Compile>
     <Compile Include="Migrations\VirtualPetDbContextModelSnapshot.cs" />
     <Compile Include="Queries\QueryHandlers\GetPetQueryHandler.cs" />
-    <Compile Include="ValueObjects\Event.cs" />
+    <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\EventType.cs" />
     <Compile Include="Entities\Pet.cs" />
     <Compile Include="Entities\PetProfile.cs" />
