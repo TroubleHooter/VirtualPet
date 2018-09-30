@@ -1,3 +1,11 @@
+**Solution**
+*Decreasing mood, increasing Hunger* 
+The increasing hunger and decreasing mood/happiness are calculated on the fly by using the LastUpdated field and the current DateTime. The client can calculate the stats locally from the date it last received the pet so it can continue offline.
+On any action (Stroke/feed) the server uses the LastUpdated DateTime and calculates the pet’s stat before implementing the stat modifier from the pets associated profile before saving the new stats and updating the LastUpdated Datetime with the current DateTime.
+
+*Profiles*
+There is currently 1 profile but more can be added and associated with a pet to change the mood and hunger time multipliers and the action (Stroke and Feeding) modifiers.
+
 **Patterns used**
 - CQRS with MediatR 
 - Some DDD concepts 
@@ -19,18 +27,18 @@ within the Startup.cs or alternatively you can run the migration file from the V
 -	logging
 
 **Endpoints**
-- Get all pets for user 
+- GET all pets for user 
   -```https://localhost:44319/virtual-pet/pet/pets/{UserId}```
-- Get pet by id 
+- GET pet by id 
   -```https://localhost:44319/virtual-pet/pet/{PetId}```
-- Stroke pet by id 
-  -```https://localhost:44319/virtual-pet/Stroke/{PetId}```
-- Feed pet by id 
-  -```https://localhost:44319/virtual-pet/Feed/{PetId}```
-- Create a new pet 
+- POST Stroke pet by id 
+  -```https://localhost:44319/virtual-pet/pet/Stroke/{PetId}```
+- POST Feed pet by id 
+  -```https://localhost:44319/virtual-pet/pet/Feed/{PetId}```
+- POST Create a new pet 
   -```https://localhost:44319/virtual-pet/pet/```
 
-**Post Data**
+**Create Pet Post Data**
 ```
 {
 	"Name":"Fido",
