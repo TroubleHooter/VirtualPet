@@ -4,7 +4,7 @@ namespace VirtualPet.Application.Enums
 {
     public enum PetTypes
     {
-        Dog,
+        Dog = 1,
         Cat
     }
 }

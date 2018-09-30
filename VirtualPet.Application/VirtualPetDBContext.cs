@@ -14,17 +14,18 @@ namespace VirtualPet.Application
         public virtual DbSet<EventType> EventTypes { get; set; }
         public virtual DbSet<PetType> PetTypes { get; set; }
 
-        //public VirtualPetDbContext(DbContextOptions<VirtualPetDbContext> options) : base(options)
-        //{
+         public VirtualPetDbContext() { }
 
-        //}
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public VirtualPetDbContext(DbContextOptions<VirtualPetDbContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer("Server = .\\; Database = VirtualPet; Trusted_Connection = True;");
-            optionsBuilder.EnableSensitiveDataLogging();
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Pet>()
+                .HasOne(p => p.TypeOfPet)
+                .WithMany(b => b.Pets).HasForeignKey(p => p.PetTypeId);
+
             CreateDbDefaults(modelBuilder);
             SeedData(modelBuilder);
         }
@@ -61,19 +62,19 @@ namespace VirtualPet.Application
         {
             var createDate = DateTime.Now.AddMinutes(-10);
 
-            var petTypeDog = new PetType { Id = 1, CreateDate = createDate, Name = "Dog" };
-            var petTypeCat = new PetType { Id = 2, CreateDate = createDate, Name = "Cat" };
+            var petTypeDog = new PetType { Id = (int)Enums.PetTypes.Dog, CreateDate = createDate, Name = "Dog" };
+            var petTypeCat = new PetType { Id = (int)Enums.PetTypes.Cat, CreateDate = createDate, Name = "Cat" };
 
             var eventTypeBorn = new EventType
             {
-                Id = 1,
+                Id = (int)Enums.EventTypes.Born,
                 CreateDate = createDate,
                 Name = "Born",
                 Description = "The pet was born"
             };
             var eventTypeStroked = new EventType
             {
-                Id = 2,
+                Id = (int)Enums.EventTypes.Stroked,
                 CreateDate = createDate,
                 Name = "Stroked",
                 Description = "The pet was stroked"
@@ -81,7 +82,7 @@ namespace VirtualPet.Application
             ;
             var eventTypeFeed = new EventType
             {
-                Id = 3,
+                Id = (int)Enums.EventTypes.Fed,
                 CreateDate = createDate,
                 Name = "Fed",
                 Description = "The pet was fed"
@@ -132,8 +133,6 @@ namespace VirtualPet.Application
 
             modelBuilder.Entity<User>().HasData(user);
             modelBuilder.Entity<Pet>().HasData(pet);
-
-          //  Database.EnsureCreated();
 
         }
     }

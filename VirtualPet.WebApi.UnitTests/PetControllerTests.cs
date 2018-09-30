@@ -25,6 +25,15 @@ namespace VirtualPet.WebApi.UnitTests
             sut = new PetController(mockMediator.Object);
         }
         [Fact]
+        public void Get()
+        {
+            //Arrange
+            var httpResult = sut.Get();
+
+            //Assert
+            Assert.IsType<OkObjectResult>(httpResult);
+        }
+        [Fact]
         public void Get_Pet_Returns_Pet()
         {
             //Arrange
@@ -114,6 +123,51 @@ namespace VirtualPet.WebApi.UnitTests
 
             //Assert
             Assert.IsType<NotFoundResult>(httpResult.Result);
+        }
+        [Fact]
+        public void Feed_Pet_Returns_NoContent()
+        {
+            //Arrange
+            var petId = 1;
+            var handlerResponse = new HandlerResponse<string>(ResultType.Success);
+
+            mockMediator.Setup(x => x.Send(It.Is<FeedPetCommand>(y => y.PetId == petId), CancellationToken.None)).Returns(Task.FromResult(handlerResponse));
+
+            //Arrange
+            var httpResult = sut.Feed(petId);
+
+            //Assert
+            Assert.IsType<NoContentResult>(httpResult.Result);
+        }
+        [Fact]
+        public void Feed_Pet_Returns_NotFound()
+        {
+            //Arrange
+            var petId = 1;
+            var handlerResponse = new HandlerResponse<string>(ResultType.NotFound, "");
+
+            mockMediator.Setup(x => x.Send(It.Is<FeedPetCommand>(y => y.PetId == petId), CancellationToken.None)).Returns(Task.FromResult(handlerResponse));
+
+            //Arrange
+            var httpResult = sut.Feed(petId);
+
+            //Assert
+            Assert.IsType<NotFoundResult>(httpResult.Result);
+        }
+        [Fact]
+        public void Post_Pet_Returns_Created_Pet()
+        {
+            //Arrange
+            var petId = 1;
+            var handlerResponse = new HandlerResponse<PetDto>(ResultType.Success, new PetDto());
+
+            mockMediator.Setup(x => x.Send(It.IsAny<CreatePetCommand>(), CancellationToken.None)).Returns(Task.FromResult(handlerResponse));
+
+            //Arrange
+            var httpResult = sut.Post(new PetDto());
+
+            //Assert
+            Assert.IsType<OkObjectResult>(httpResult.Result);
         }
     }
 }

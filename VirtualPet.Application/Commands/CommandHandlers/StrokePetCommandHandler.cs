@@ -3,9 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using VirtualPet.Application.Entities;
 using VirtualPet.Application.Enums;
 using VirtualPet.Application.HandlerResponse;
-using VirtualPet.Application.ValueObjects;
 
 namespace VirtualPet.Application.Commands.CommandHandlers
 {
