@@ -14,7 +14,7 @@
 **Tech**
 - .Net Framework 4.6.2
 - Asp.net API Core targeting .net 4.6.2
-- Entity Framework core 2.1.3 using SQLServer
+- Entity Framework core 2.1.3 using SQLServer, code first (seeded and configured VirtualPet.Application.VirtualPetDBContext.cs)
 
 **Configuration**
 -	MSSQL DB Connection string is in the Config at VirtualPet.WebApi. appsettings.json
@@ -24,7 +24,6 @@ within the Startup.cs or alternatively you can run the migration file from the V
 **Not implemented**
 -	User Authentication or Authorisation (userId/OwnerId passed from client) 
 -	Integration Tests
--	Events Controller (though the events are created for all Inserts/updates to the DB
 -	logging
 
 **Endpoints**
